@@ -1,0 +1,30 @@
+{
+  "name": "github-concierge",
+  "version": "1.0.0",
+  "description": "Practical UI to navigate at your repositories organized in folders",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/luizdesign/github-concierge.git"
+  },
+  "keywords": [
+    "github",
+    "concierge",
+    "UI",
+    "organize",
+    "repositories"
+  ],
+  "author": "Luiz Kota",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/luizdesign/github-concierge/issues"
+  },
+  "homepage": "https://github.com/luizdesign/github-concierge#readme",
+  "dependencies": {
+    "express": "^4.17.0"
+  }
+}
