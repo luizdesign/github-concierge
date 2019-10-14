@@ -1,3 +1,34 @@
 {
-  "extends": "airbnb-base"
+  "extends": ["airbnb", "plugin:@typescript-eslint/recommended"],
+  "plugins": ["@typescript-eslint"],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "project": "./tsconfig.json",
+    "createDefaultProgram": true
+  },
+  "env": {
+    "node": true,
+    "jest": true
+  },
+  "settings": {
+    "import/resolver": {
+      "node": { "extensions": [".js", ".jsx", ".ts", ".tsx"] }
+    }
+  },
+  "rules": {
+    "@typescript-eslint/indent": [2, 2],
+    "@typescript-eslint/ban-ts-ignore": [1],
+    "react/jsx-filename-extension": [2, { "extensions": [".ts", ".tsx"] }],
+    "react/jsx-one-expression-per-line": [0],
+    "max-len": [1, {"code": 120, "ignoreUrls": true}],
+    "object-curly-newline": [2, { "consistent": true }]
+  },
+  "overrides": [
+    {
+      "files": ["*.test.ts","*.test.tsx"],
+      "rules": {
+        "@typescript-eslint/no-non-null-assertion": "off"
+      }
+    }
+  ]
 }
