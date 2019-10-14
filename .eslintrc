@@ -20,7 +20,7 @@
     "@typescript-eslint/ban-ts-ignore": [1],
     "react/jsx-filename-extension": [2, { "extensions": [".ts", ".tsx"] }],
     "react/jsx-one-expression-per-line": [0],
-    "max-len": [2, {"code": 120, "ignoreUrls": true}],
+    "max-len": [1, {"code": 120, "ignoreUrls": true}],
     "object-curly-newline": [2, { "consistent": true }]
   },
   "overrides": [
