@@ -4,7 +4,7 @@
   "description": "Practical UI to navigate at your repositories organized in folders",
   "main": "index.ts",
   "scripts": {
-    "start": "nodemon",
+    "start": "npx nodemon",
     "lint": "eslint . --ext .ts,tsx",
     "precommit": "npm run lint",
     "test": "jest --verbose",
