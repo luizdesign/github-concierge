@@ -9,7 +9,8 @@
     "precommit": "npm run lint",
     "test": "jest --verbose",
     "test:watch": "jest --watch",
-    "test:cover": "jest --coverage"
+    "test:cover": "jest --coverage",
+    "commit": "git-cz"
   },
   "repository": {
     "type": "git",
@@ -50,6 +51,7 @@
     "@types/react": "^16.9.5",
     "@typescript-eslint/eslint-plugin": "^2.3.3",
     "@typescript-eslint/parser": "^2.3.3",
+    "cz-conventional-changelog": "^3.0.2",
     "eslint": "^6.5.1",
     "eslint-config-airbnb": "^18.0.1",
     "eslint-plugin-import": "^2.18.2",
@@ -65,5 +67,10 @@
   "nodemon": {
     "ext": "ts",
     "exec": "ts-node ."
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   }
 }
