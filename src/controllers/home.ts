@@ -1,8 +1,24 @@
 import { Response, Request } from 'express';
+import { GithubOauthApp } from '../config/github';
 
 class Home {
-  static mainAction(_req: Request, res: Response): void {
-    res.render('home', { name: 'John', status: true });
+  githubConfig: GithubOauthApp;
+
+  constructor(githubConfig: GithubOauthApp) {
+    this.githubConfig = githubConfig;
+    this.mainAction = this.mainAction.bind(this);
+  }
+
+  mainAction(_req: Request, res: Response): void {
+    const { clientId, redirectUrl } = this.githubConfig;
+
+    res.render(
+      'home',
+      {
+        clientId,
+        redirectUrl,
+      },
+    );
   }
 }
 
