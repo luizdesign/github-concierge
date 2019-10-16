@@ -10,13 +10,14 @@ class Home {
   }
 
   mainAction(_req: Request, res: Response): void {
-    const { clientId, redirectUrl } = this.githubConfig;
+    const { clientId, redirectUrl, scope } = this.githubConfig;
 
     res.render(
       'home',
       {
         clientId,
         redirectUrl,
+        scope,
       },
     );
   }
