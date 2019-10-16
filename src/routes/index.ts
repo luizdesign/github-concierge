@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import HomeController from '../controllers/factories/home';
+import UserController from '../controllers/factories/user';
 import GithubOauthController from '../controllers/github';
 
 class Routes {
@@ -12,6 +13,11 @@ class Routes {
     router.get(
       '/github/oauth/redirect',
       GithubOauthController.mainAction,
+    );
+
+    router.get(
+      '/user/:oauth/',
+      (UserController.make()).mainAction,
     );
   }
 }
