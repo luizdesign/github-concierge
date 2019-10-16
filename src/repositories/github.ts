@@ -1,4 +1,4 @@
-import Axios from 'axios';
+import { AxiosInstance } from 'axios';
 import { GithubOauthApp } from '../config/github';
 
 export interface GithubAccessData {
@@ -15,8 +15,14 @@ export interface GithubUserData {
 }
 
 class Github {
-  static async getAccessToken(code: string, config: GithubOauthApp): Promise<GithubAccessData> {
-    const response = await Axios.request({
+  axios: AxiosInstance;
+
+  constructor(axios: AxiosInstance) {
+    this.axios = axios;
+  }
+
+  async getAccessToken(code: string, config: GithubOauthApp): Promise<GithubAccessData> {
+    const response = await this.axios.request({
       url: 'https://github.com/login/oauth/access_token',
       method: 'post',
       params: {
@@ -36,8 +42,8 @@ class Github {
     };
   }
 
-  static async getUserData(accessToken: string): Promise<GithubUserData> {
-    const response = await Axios.request({
+  async getUserData(accessToken: string): Promise<GithubUserData> {
+    const response = await this.axios.request({
       url: 'https://api.github.com/user',
       method: 'get',
       headers: {

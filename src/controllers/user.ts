@@ -20,11 +20,11 @@ class User {
   async mainAction(req: Request, res: Response): Promise<void> {
     const { oauth } = req.params;
 
-    const accessData = await GitHubRepository.getAccessToken(
+    const accessData = await this.githubRepository.getAccessToken(
       oauth,
       this.githubConfig,
     );
-    const user = await GitHubRepository.getUserData(
+    const user = await this.githubRepository.getUserData(
       accessData.accessToken,
     );
 
