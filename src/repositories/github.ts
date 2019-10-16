@@ -14,6 +14,16 @@ export interface GithubUserData {
   homepage: string;
 }
 
+interface Org {
+  name?: string;
+  description?: string;
+  avatarUrl?: string;
+}
+
+export interface OrgsList {
+  [index: number]: Org;
+}
+
 class Github {
   axios: AxiosInstance;
 
@@ -58,6 +68,25 @@ class Github {
       avatarUrl: response.data.avatar_url,
       homepage: response.data.html_url,
     };
+  }
+
+  async getOrgs(accessToken: string): Promise<void> {
+    const response = await this.axios.request({
+      url: 'https://api.github.com/user/orgs',
+      method: 'get',
+      headers: {
+        Accept: 'application/json',
+        Authorization: `token ${accessToken}`,
+      },
+    });
+
+    return response.data.map(
+      (org: Record<string, string>): Org => ({
+        name: org.login,
+        description: org.description,
+        avatarUrl: org.avatar_url,
+      }),
+    );
   }
 }
 
