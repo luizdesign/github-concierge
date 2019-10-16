@@ -1,21 +1,37 @@
 import { Response, Request } from 'express';
 import { GithubOauthApp } from '../config/github';
+import GitHubRepository from '../repositories/github';
 
 class User {
   githubConfig: GithubOauthApp;
 
-  constructor(githubConfig: GithubOauthApp) {
+  githubRepository: GitHubRepository;
+
+  constructor(
+    githubConfig: GithubOauthApp,
+    githubRepository: GitHubRepository,
+  ) {
     this.githubConfig = githubConfig;
+    this.githubRepository = githubRepository;
+
     this.mainAction = this.mainAction.bind(this);
   }
 
-  mainAction(_req: Request, res: Response): void {
-    const { clientId } = this.githubConfig;
+  async mainAction(req: Request, res: Response): Promise<void> {
+    const { oauth } = req.params;
+
+    const accessData = await GitHubRepository.getAccessToken(
+      oauth,
+      this.githubConfig,
+    );
+    const user = await GitHubRepository.getUserData(
+      accessData.accessToken,
+    );
 
     res.render(
       'user',
       {
-        clientId,
+        user,
       },
     );
   }
