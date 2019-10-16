@@ -4,10 +4,7 @@ class Github {
   static mainAction(req: Request, res: Response): void {
     const { code } = req.query;
 
-    res.json({
-      status: true,
-      code,
-    });
+    res.redirect(`/user/${code}/`);
   }
 }
 
