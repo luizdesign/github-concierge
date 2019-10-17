@@ -15,9 +15,9 @@ export interface GithubUserData {
 }
 
 interface Org {
-  name?: string;
-  description?: string;
-  avatarUrl?: string;
+  name: string;
+  description: string;
+  avatarUrl: string;
 }
 
 export interface OrgsList {
@@ -70,7 +70,7 @@ class Github {
     };
   }
 
-  async getOrgs(accessToken: string): Promise<void> {
+  async getOrgs(accessToken: string): Promise<OrgsList> {
     const response = await this.axios.request({
       url: 'https://api.github.com/user/orgs',
       method: 'get',
