@@ -27,11 +27,15 @@ class User {
     const user = await this.githubRepository.getUserData(
       accessData.accessToken,
     );
+    const orgs = await this.githubRepository.getOrgs(
+      accessData.accessToken,
+    );
 
     res.render(
       'user',
       {
         user,
+        orgs,
       },
     );
   }
