@@ -1,5 +1,5 @@
 import { Response, Request } from 'express';
-import { GithubOauthApp } from '../config/github';
+import { GithubOauthApp } from '../types/github';
 
 class Home {
   githubConfig: GithubOauthApp;

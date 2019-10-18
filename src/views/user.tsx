@@ -1,21 +1,13 @@
 import React from 'react';
+import { User } from '../types/user';
+import { Org } from '../types/org';
 
-interface User {
-  homepage: string;
-  avatarUrl: string;
-  login: string;
-  name: string;
-}
-interface Org {
-  name: string;
-  avatarUrl: string;
-}
 interface Props {
   user: User;
-  orgs: Array<Org>;
+  orgs: [Org];
 }
 
-function User({ user, orgs }: Props): JSX.Element {
+function UserPage({ user, orgs }: Props): JSX.Element {
   return (
     <section>
       <a href={user.homepage}><img src={user.avatarUrl} alt={`User ${user.login} Avatar`} /></a>
@@ -39,4 +31,4 @@ function User({ user, orgs }: Props): JSX.Element {
   );
 }
 
-export default User;
+export default UserPage;
