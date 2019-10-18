@@ -1,10 +1,4 @@
-export interface GithubOauthApp {
-  name: string;
-  clientId?: string;
-  redirectUrl: string;
-  clientSecretId?: string;
-  scope?: string;
-}
+import { GithubOauthApp } from '../types/github';
 
 class GitHubConfig {
   static get(): GithubOauthApp {

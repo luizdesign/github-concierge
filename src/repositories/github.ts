@@ -1,28 +1,7 @@
 import { AxiosInstance } from 'axios';
-import { GithubOauthApp } from '../config/github';
-
-export interface GithubAccessData {
-  accessToken: string;
-  scope: string;
-  tokenType: string;
-}
-
-export interface GithubUserData {
-  name: string;
-  login: string;
-  avatarUrl: string;
-  homepage: string;
-}
-
-interface Org {
-  name: string;
-  description: string;
-  avatarUrl: string;
-}
-
-export interface OrgsList {
-  [index: number]: Org;
-}
+import { GithubOauthApp, GithubAccessData } from '../types/github';
+import { User } from '../types/user';
+import { Org, OrgsList } from '../types/org';
 
 class Github {
   axios: AxiosInstance;
@@ -52,7 +31,7 @@ class Github {
     };
   }
 
-  async getUserData(accessToken: string): Promise<GithubUserData> {
+  async getUserData(accessToken: string): Promise<User> {
     const response = await this.axios.request({
       url: 'https://api.github.com/user',
       method: 'get',
