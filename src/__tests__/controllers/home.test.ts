@@ -27,6 +27,15 @@ describe(
 
         expect(responseMock.render)
           .toBeCalledTimes(1);
+        expect(responseMock.render)
+          .toHaveBeenCalledWith(
+            'home',
+            {
+              clientId: 'sa51sd561f6sd1f6s',
+              redirectUrl: 'http://unit.test/oauth/redirect',
+              scope: 'read:org',
+            },
+          );
       },
     );
   },
