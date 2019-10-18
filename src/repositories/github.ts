@@ -15,8 +15,10 @@ class Github {
       url: 'https://github.com/login/oauth/access_token',
       method: 'post',
       params: {
-        client_id: config.clientId,// eslint-disable-line
-        client_secret: config.clientSecretId,// eslint-disable-line
+        /* eslint-disable @typescript-eslint/camelcase */
+        client_id: config.clientId,
+        client_secret: config.clientSecretId,
+        /* eslint-enable @typescript-eslint/camelcase */
         code,
       },
       headers: {
