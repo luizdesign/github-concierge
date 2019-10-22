@@ -1,7 +1,8 @@
+import { Mock } from 'ts-mockery';
 import axios, { AxiosStatic } from 'axios';
 import GithubRepository from '../../repositories/github';
 
-jest.mock('axios');
+Mock.configure('jest');
 
 const createInstance = (mock: AxiosStatic): GithubRepository => new GithubRepository(mock);
 
@@ -22,26 +23,26 @@ describe(
 
     it(
       'Testing the getAccessToken method',
-      () => {
-        const mockedAxios = axios as jest.Mocked<typeof axios>;
-        const instance = createInstance(mockedAxios);
-
-        mockedAxios.get.mockResolvedValue({
-          data: {
-            /* eslint-disable @typescript-eslint/camelcase */
-            access_token: accessTokenMock,
-            token_type: tokenTypeMock,
-            /* eslint-enable @typescript-eslint/camelcase */
-            scope: scopeMock,
-          },
+      async () => {
+        const mockedAxios = Mock.of<AxiosStatic>({
+          request: jest.fn().mockResolvedValue({
+            data: {
+              /* eslint-disable @typescript-eslint/camelcase */
+              access_token: accessTokenMock,
+              token_type: tokenTypeMock,
+              /* eslint-enable @typescript-eslint/camelcase */
+              scope: scopeMock,
+            },
+          }),
         });
 
-        expect(
-          instance.getAccessToken(
-            codeAuthorizationMock,
-            GithubOauthConfigMock,
-          ),
-        ).resolves.toBe({
+        const instance = createInstance(mockedAxios);
+        const data = await instance.getAccessToken(
+          codeAuthorizationMock,
+          GithubOauthConfigMock,
+        );
+
+        expect(data).toEqual({
           accessToken: accessTokenMock,
           scope: scopeMock,
           tokenType: tokenTypeMock,
@@ -51,24 +52,24 @@ describe(
 
     it(
       'Testing the getUserData method',
-      () => {
-        const mockedAxios = axios as jest.Mocked<typeof axios>;
-        const instance = createInstance(mockedAxios);
-
-        mockedAxios.get.mockResolvedValue({
-          data: {
-            name: 'Unit test',
-            login: 'unittest',
-            /* eslint-disable @typescript-eslint/camelcase */
-            avatar_url: 'http://unit.test/avatar.jpg',
-            html_url: 'http://unit.test/unittest',
-            /* eslint-enable @typescript-eslint/camelcase */
-          },
+      async () => {
+        const mockedAxios = Mock.of<AxiosStatic>({
+          request: jest.fn().mockResolvedValue({
+            data: {
+              name: 'Unit test',
+              login: 'unittest',
+              /* eslint-disable @typescript-eslint/camelcase */
+              avatar_url: 'http://unit.test/avatar.jpg',
+              html_url: 'http://unit.test/unittest',
+              /* eslint-enable @typescript-eslint/camelcase */
+            },
+          }),
         });
+        const instance = createInstance(mockedAxios);
+        const data = await instance.getUserData(accessTokenMock);
 
-        expect(instance.getUserData(accessTokenMock))
-          .resolves
-          .toBe({
+        expect(data)
+          .toEqual({
             name: 'Unit test',
             login: 'unittest',
             avatarUrl: 'http://unit.test/avatar.jpg',
@@ -79,32 +80,32 @@ describe(
 
     it(
       'Testing the getOrgs method',
-      () => {
-        const mockedAxios = axios as jest.Mocked<typeof axios>;
-        const instance = createInstance(mockedAxios);
-
-        mockedAxios.get.mockResolvedValue({
-          data: [
-            {
-              login: 'unittest',
-              description: 'Unit test description',
-              /* eslint-disable @typescript-eslint/camelcase */
-              avatar_url: 'http://unit.test/avatar.jpg',
-              /* eslint-enable @typescript-eslint/camelcase */
-            },
-            {
-              login: 'unittest01',
-              description: 'Unit test description 01',
-              /* eslint-disable @typescript-eslint/camelcase */
-              avatar_url: 'http://unit.test/avatar_01.jpg',
-              /* eslint-enable @typescript-eslint/camelcase */
-            },
-          ],
+      async () => {
+        const mockedAxios = Mock.of<AxiosStatic>({
+          request: jest.fn().mockResolvedValue({
+            data: [
+              {
+                login: 'unittest',
+                description: 'Unit test description',
+                /* eslint-disable @typescript-eslint/camelcase */
+                avatar_url: 'http://unit.test/avatar.jpg',
+                /* eslint-enable @typescript-eslint/camelcase */
+              },
+              {
+                login: 'unittest01',
+                description: 'Unit test description 01',
+                /* eslint-disable @typescript-eslint/camelcase */
+                avatar_url: 'http://unit.test/avatar_01.jpg',
+                /* eslint-enable @typescript-eslint/camelcase */
+              },
+            ],
+          }),
         });
+        const instance = createInstance(mockedAxios);
+        const data = await instance.getOrgs(accessTokenMock);
 
-        expect(instance.getOrgs(accessTokenMock))
-          .resolves
-          .toBe([
+        expect(data)
+          .toEqual([
             {
               name: 'unittest',
               description: 'Unit test description',
