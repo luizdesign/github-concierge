@@ -11,24 +11,18 @@ const mockRequest = {
   },
 };
 
-describe(
-  'Test the Github Controller',
-  () => {
-    it(
-      'Testing the mainAction',
-      () => {
-        // @ts-ignore
-        const responseMock: Response = { ...mockResponse };
-        // @ts-ignore
-        const requestMock: Request = { ...mockRequest };
+describe('Test the Github Controller', () => {
+  it('Testing the mainAction', () => {
+    // @ts-ignore
+    const responseMock: Response = { ...mockResponse };
+    // @ts-ignore
+    const requestMock: Request = { ...mockRequest };
 
-        Github.mainAction(requestMock, responseMock);
+    Github.mainAction(requestMock, responseMock);
 
-        expect(responseMock.redirect)
-          .toBeCalledTimes(1);
-        expect(responseMock.redirect)
-          .toHaveBeenCalledWith('/user/123/');
-      },
-    );
-  },
-);
+    expect(responseMock.redirect)
+      .toBeCalledTimes(1);
+    expect(responseMock.redirect)
+      .toHaveBeenCalledWith('/user/123/');
+  });
+});

@@ -7,36 +7,30 @@ const mock = {
   render: jest.fn(),
 };
 
-describe(
-  'Test the Home Controller',
-  () => {
-    it(
-      'Testing the mainAction',
-      () => {
-        // @ts-ignore
-        const responseMock: Response = { ...mock };
-        const instance = createInstance({
-          name: 'Unit test',
+describe('Test the Home Controller', () => {
+  it('Testing the mainAction', () => {
+    // @ts-ignore
+    const responseMock: Response = { ...mock };
+    const instance = createInstance({
+      name: 'Unit test',
+      clientId: 'sa51sd561f6sd1f6s',
+      redirectUrl: 'http://unit.test/oauth/redirect',
+      clientSecretId: 'ads61fsd651f65df1sd65f1s6d1fsfs',
+      scope: 'read:org',
+    });
+
+    instance.mainAction({} as Request, responseMock);
+
+    expect(responseMock.render)
+      .toBeCalledTimes(1);
+    expect(responseMock.render)
+      .toHaveBeenCalledWith(
+        'home',
+        {
           clientId: 'sa51sd561f6sd1f6s',
           redirectUrl: 'http://unit.test/oauth/redirect',
-          clientSecretId: 'ads61fsd651f65df1sd65f1s6d1fsfs',
           scope: 'read:org',
-        });
-
-        instance.mainAction({} as Request, responseMock);
-
-        expect(responseMock.render)
-          .toBeCalledTimes(1);
-        expect(responseMock.render)
-          .toHaveBeenCalledWith(
-            'home',
-            {
-              clientId: 'sa51sd561f6sd1f6s',
-              redirectUrl: 'http://unit.test/oauth/redirect',
-              scope: 'read:org',
-            },
-          );
-      },
-    );
-  },
-);
+        },
+      );
+  });
+});
