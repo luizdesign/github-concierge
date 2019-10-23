@@ -4,15 +4,19 @@ import Home from './home';
 
 
 describe('<Home />', () => {
-  it('renders user with status enabled', () => {
-    const { container } = render(<Home name="Alex" status />);
-    expect(container.querySelector('h1')!.textContent).toBe('Hello Alex');
-    expect(container.querySelector('h2')!.textContent).toBe('Your status is enabled');
-  });
+  const clientIdMock = '12345678';
+  const scopeMock = 'read:org';
+  const redirectUrlMock = 'http://unit.test/oauth/redirect/';
 
-  it('renders user with status disabled', () => {
-    const { container } = render(<Home name="Max" />);
-    expect(container.querySelector('h1')!.textContent).toBe('Hello Max');
-    expect(container.querySelector('h2')!.textContent).toBe('Your status is disabled');
+  it('Test the Home page render', () => {
+    const { container } = render(
+      <Home clientId={clientIdMock} scope={scopeMock} redirectUrl={redirectUrlMock} />,
+    );
+
+    const link = container.querySelector('.login');
+    expect(link!.textContent)
+      .toBe('Log in on GitHub');
+    expect(link!.getAttribute('href'))
+      .toBe(`https://github.com/login/oauth/authorize?scope=${scopeMock}&client_id=${clientIdMock}&redirect_uri=${redirectUrlMock}`);
   });
 });

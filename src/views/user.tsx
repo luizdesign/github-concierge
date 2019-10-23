@@ -17,7 +17,7 @@ function UserPage({ user, orgs }: Props): JSX.Element {
         {
           orgs.map(
             (org: Org): JSX.Element => (
-              <li>
+              <li key={org.name}>
                 <a href={`/${org.name}/`}>
                   <img src={org.avatarUrl} alt={`Avatar to ${org.name} organization`} />
                   {`Organization ${org.name}`}
