@@ -10,3 +10,14 @@ services:
       - .:/app/
     command: npm start
     env_file: .env
+
+  storage:
+    image: redis:3-alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+
+
+volumes:
+  redis_data:
