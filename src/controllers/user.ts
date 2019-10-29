@@ -18,17 +18,11 @@ class User {
   }
 
   async mainAction(req: Request, res: Response): Promise<void> {
-    const { oauth } = req.params;
-
-    const accessData = await this.githubRepository.getAccessToken(
-      oauth,
-      this.githubConfig,
-    );
     const user = await this.githubRepository.getUserData(
-      accessData.accessToken,
+      req.session.accessToken,
     );
     const orgs = await this.githubRepository.getOrgs(
-      accessData.accessToken,
+      req.session.accessToken,
     );
 
     res.render(
