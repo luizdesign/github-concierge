@@ -1,6 +1,5 @@
 import { Response, Request } from 'express';
 import { Mock } from 'ts-mockery';
-import { GithubAccessData } from '../../types/github';
 import { User } from '../../types/user';
 import { OrgsList } from '../../types/org';
 import GithubRepository from '../../repositories/github';
@@ -11,6 +10,9 @@ Mock.configure('jest');
 const mockRequest = {
   params: {
     oauth: '123',
+  },
+  session: {
+    accessToken: 'i432h423jh4vj23v4j23v2',
   },
 };
 
@@ -53,11 +55,6 @@ describe('Testing the User Controller', () => {
 
   it('Testing the mainAction method', async () => {
     const repository = Mock.of<GithubRepository>({
-      getAccessToken: (): Promise<GithubAccessData> => Promise.resolve({
-        accessToken: '32v4j2v423v',
-        scope: 'read:org',
-        tokenType: 'bearer',
-      }),
       getUserData: (): Promise<User> => Promise.resolve(userMock),
       getOrgs: (): Promise<OrgsList> => Promise.resolve(orgsMock),
     });
