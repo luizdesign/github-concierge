@@ -1,5 +1,9 @@
+interface Session {
+  accessToken: string;
+}
+
 declare namespace Express {
   export interface Request {
-    session: Record<string, string>;
+    session: Session;
   }
 }
